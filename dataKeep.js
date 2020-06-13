@@ -2,25 +2,25 @@ let unll, ll, sl, unsl;
 let onlySession = true;
 const LOCALSTORAGE = 0,
   SESSIONSTORAGE = 1;
-let KEY = 'vuex-along';
+let KEY = "vuex-along";
 const ls = window.localStorage;
 const ss = window.sessionStorage;
 
-const vuexAlong = store => {
+const vuexAlong = (store) => {
   initAlong(store);
-  store.subscribe(function(mutation, state) {
+  store.subscribe(function (mutation, state) {
     saveLocal(state);
     saveSession(state);
   });
 };
 export default vuexAlong;
 
-const saveLocal = state => {
+const saveLocal = (state) => {
   if (onlySession) return;
   setItem(KEY, filter(ll, unll, state), LOCALSTORAGE);
 };
 
-const saveSession = state => {
+const saveSession = (state) => {
   if (!sl && !unsl && !onlySession) return;
   setItem(KEY, filter(sl, unsl, state), SESSIONSTORAGE);
 };
@@ -45,7 +45,7 @@ const filter = (s1, s2, state) => {
 /**
  * Init this plugin when store init
  */
-const initAlong = store => {
+const initAlong = (store) => {
   let obj = {};
   if (!onlySession && getItem(KEY, LOCALSTORAGE))
     Object.assign(obj, getItem(KEY, LOCALSTORAGE));
@@ -55,8 +55,8 @@ const initAlong = store => {
 };
 
 const setWatch = (arry, isWatch = true, type) => {
-  if (!Array.isArray(arry) || typeof isWatch != 'boolean') {
-    return console.error('[vuex-along] params of watch has error');
+  if (!Array.isArray(arry) || typeof isWatch != "boolean") {
+    return console.error("[vuex-along] params of watch has error");
   }
   if (type == LOCALSTORAGE) {
     isWatch ? ((ll = arry), (unll = null)) : ((unll = arry), (ll = null));
@@ -73,16 +73,16 @@ const watchSession = (arry, isWatch) => {
   setWatch(arry, isWatch, SESSIONSTORAGE);
 };
 
-const setOnlySession = bool => {
-  if (typeof bool != 'boolean') {
-    return console.error('[vuex-along] params of onlySession has error');
+const setOnlySession = (bool) => {
+  if (typeof bool != "boolean") {
+    return console.error("[vuex-along] params of onlySession has error");
   }
   onlySession = bool;
 };
-const coded = str => {
+const coded = (str) => {
   return window.btoa(window.encodeURIComponent(str));
 };
-const encoded = str => {
+const encoded = (str) => {
   return window.decodeURIComponent(window.atob(str));
 };
 
@@ -109,11 +109,11 @@ const removeItem = (key = KEY) => {
  * 2018年8月8日
  * @param key
  */
-const setKey = key => {
-  if (typeof key == 'string') {
+const setKey = (key) => {
+  if (typeof key == "string") {
     KEY = key;
   } else {
-    console.error('[vuex-along] key is not string');
+    console.error("[vuex-along] key is not string");
   }
 };
 
