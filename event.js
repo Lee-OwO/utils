@@ -34,18 +34,3 @@ class Event {
     });
   }
 }
-
-const a = new Event();
-a.listen("demo", () => {
-  setTimeout(() => {
-    console.log(456);
-  }, 0);
-});
-a.listen("demo", () => {
-  console.log(123213);
-});
-a.listen("demo", () => {
-  console.log(546);
-});
-a.trigger("demo");
-console.log(a);
