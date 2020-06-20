@@ -24,14 +24,28 @@ class Event {
       }
     }
   }
-  trigger() {
-    const key = [].shift.call(arguments);
+  trigger(key, ...args) {
     const fns = this.clientList[key];
     if (!fns || fns.length === 0) {
       return false;
     }
     fns.forEach((fn) => {
-      fn.apply(this, arguments);
+      fn.apply(this, args);
     });
   }
 }
+
+const a = new Event();
+a.listen("demo", () => {
+  setTimeout(() => {
+    console.log(456);
+  }, 0);
+});
+a.listen("demo", () => {
+  console.log(123213);
+});
+a.listen("demo", () => {
+  console.log(546);
+});
+a.trigger("demo");
+console.log(a);
